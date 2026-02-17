@@ -1,0 +1,5 @@
+{
+  "frontend/src/audio/AudioManager.ts": "Audio manager class that handles sound effects and background music with Web Audio API, respecting user settings for music and SFX toggles.",
+  "frontend/src/rewardedAds/useRewardedContinue.ts": "React hook that manages the state and logic for the rewarded ad continue feature, tracking whether a continue is available and handling the ad flow.",
+  "frontend/src/index.css": "Global stylesheet with Tailwind directives and OKLCH color system defining a warm amber/orange theme for both light and dark modes, optimized for the runner game aesthetic."
+}

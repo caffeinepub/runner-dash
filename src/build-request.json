@@ -1,0 +1,321 @@
+{
+  "kind": "build_request",
+  "title": "2D Endless Runner Web Game with Leaderboard",
+  "projectName": "Runner Dash",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement the core 2D endless runner gameplay loop in the web frontend: an auto-running character, jump action, gravity, ground, collision detection with obstacles, and difficulty that scales over time (e.g., speed increases).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "A 2D endless runner game where the player controls a character that runs automatically and must jump over obstacles."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Player character moves automatically without user input",
+        "Jump input triggers an upward impulse and returns to ground via gravity",
+        "Obstacles move toward the player; collision ends the run",
+        "Game speed/difficulty increases over time without freezing or stuttering"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create a Main Menu screen with buttons: Start Game, Settings, and Exit (Exit should return to the main menu / stop the session since browsers cannot close the app tab reliably).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Main Menu (Start Game, Settings, Exit)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Main menu is the default landing screen",
+        "Start Game transitions to gameplay",
+        "Settings opens a settings screen/modal",
+        "Exit returns to Main Menu and resets any active run state"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a Settings screen with at minimum audio controls (music on/off, SFX on/off, and optionally volume sliders) and persist settings locally in the browser.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Main Menu (Start Game, Settings, Exit)",
+          "Sound effects and background music"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Toggles affect audio immediately during gameplay and menus",
+        "Settings persist across page reloads"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement smooth character animation suitable for an endless runner (e.g., run cycle and jump state), using lightweight sprite animation driven by the game loop.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Smooth character animation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Character displays a looping run animation when on ground",
+        "Character displays a distinct jump/fall frame or animation when airborne",
+        "Animation remains smooth at typical frame rates"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add an on-screen Jump button control that triggers the jump action on click/tap, and also support keyboard input (Space) for accessibility.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Jump button control"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Jump button works on desktop and mobile touch",
+        "Space key triggers jump",
+        "Jump does not trigger repeatedly while already airborne unless explicitly designed (e.g., no double-jump by default)"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement random obstacle generation/spawning with parameters to vary spacing and obstacle type/size while keeping gameplay fair; ensure obstacles are cleaned up when off-screen for performance.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Random obstacle generation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Obstacles spawn continuously during a run with randomized spacing",
+        "Off-screen obstacles are removed from memory/state",
+        "No unbounded growth in obstacle list during a long run"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement a score counter that increases over time while the player is alive and display it during gameplay; add a high score display on Game Over.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Score counter (increases over time)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Score increments automatically over time during gameplay",
+        "Current score is visible during a run",
+        "Game Over shows final score and best/high score (local)"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Create a Game Over screen that appears on collision and includes a Restart button to start a new run, plus a button to return to Main Menu.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Game Over screen with Restart button"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Collision transitions to Game Over state",
+        "Restart begins a new run with score reset and regenerated obstacles",
+        "Main Menu button returns to main menu and resets run state"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add sound effects (jump, hit/game over) and looping background music with user controls from Settings; ensure audio loading does not block gameplay start.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Sound effects and background music"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Jump plays SFX once per jump action",
+        "Collision/game-over plays SFX",
+        "Background music loops and can be toggled",
+        "Audio assets are preloaded or lazily loaded without freezing the UI"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Optimize the game for lightweight performance in the browser: fixed-timestep or stable delta-time update loop, avoid unnecessary React re-renders during the game loop, and keep assets small.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Light-weight performance optimized"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Gameplay remains responsive with stable animation",
+        "State updates during gameplay do not cause excessive React component re-rendering",
+        "No obvious memory growth during extended play"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Implement a backend leaderboard canister in Motoko: store best scores per user (Internet Identity principal), expose endpoints to submit a score, fetch top N scores, and fetch the caller’s best score.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Add leaderboard using Firebase"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Authenticated user can submit a score",
+        "Leaderboard returns a sorted list of top scores with associated user identifiers (principal or display alias)",
+        "Caller can fetch their best score",
+        "Data persists across sessions (stable storage)"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Integrate Internet Identity login on the frontend and connect the game to the Motoko leaderboard: prompt login from the menu (or on submit), submit score on Game Over, and display a Leaderboard screen showing top scores and the player’s rank/best score.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Add leaderboard using Firebase"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can authenticate with Internet Identity",
+        "On Game Over, the score can be submitted to backend after login",
+        "Leaderboard screen shows top N and the current user’s best score (and rank if feasible)",
+        "If not logged in, UI clearly indicates login is required to submit scores"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Provide a simple, attractive, coherent UI theme applied across menu, settings, gameplay HUD, game over, and leaderboard screens (choose a distinct style and consistent typography/colors; do not use a blue/purple default palette).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Simple attractive UI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All screens share a consistent visual style (colors, type, spacing, buttons)",
+        "Theme is readable and accessible (contrast)",
+        "UI feels game-appropriate and polished"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Add a “Rewarded Ads” placeholder feature in the UI that does not integrate third-party ad networks: allow the player to optionally click “Watch Ad to Continue” on Game Over and simulate a rewarded continue after a short countdown animation.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Add rewarded ads integration"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Game Over screen includes an optional rewarded-continue action",
+        "No external ad SDKs are required",
+        "Choosing the option shows a short simulated ad countdown and then resumes gameplay once per run (configurable)"
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Add generated static art assets (character sprites, obstacles, and a background) and render them from frontend static assets (do not serve images from the backend).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Smooth character animation",
+          "Random obstacle generation",
+          "Simple attractive UI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images are placed under frontend/public/assets/generated",
+        "Gameplay uses the generated sprites for character/obstacles/background",
+        "Assets load correctly in production build without backend image routing"
+      ]
+    }
+  ],
+  "constraints": [
+    "Must use the provided Internet Computer stack (Motoko backend, React + TypeScript frontend with Tailwind/Shadcn and React Query).",
+    "Backend must remain a single Motoko actor (no additional backend services).",
+    "Do not modify read-only frontend paths listed as immutable in system context (compose existing UI components instead).",
+    "No Firebase integration (external database/services not supported).",
+    "No real rewarded ads SDK integration (third-party ad networks not supported); only a UI simulation is allowed.",
+    "Android/Kotlin/Android Studio/Jetpack Compose/Gradle targets are not applicable in this environment."
+  ],
+  "nonGoals": [
+    "Building an actual Android APK or an Android Studio project",
+    "Integrating Firebase Authentication/Firestore/Realtime Database",
+    "Integrating Google AdMob or other real ad providers",
+    "Real-time multiplayer or WebSocket-based features"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Side-scrolling parallax background, 2D cartoon style (runner-background.dim_1920x1080.png)",
+      "Character sprite sheet with run cycle frames, transparent background (runner-spritesheet.dim_1024x256.png)",
+      "Character jump/fall sprite(s), transparent background (runner-jump.dim_256x256.png)",
+      "Obstacle sprites set (e.g., crate, cone, barrier), transparent background (runner-obstacles.dim_512x512.png)",
+      "Ground/platform tile texture, seamless, 2D (runner-ground-tile.dim_512x128.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for all user-facing text"
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

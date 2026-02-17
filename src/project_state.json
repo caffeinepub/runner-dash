@@ -1,0 +1,214 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Android Studio Kotlin project: a 2D endless runner game (Android 8+), featuring menu/settings, gameplay with jumping over randomly generated obstacles, scoring, game-over/restart, audio, optimized lightweight UI, using MVVM with Canvas or Jetpack Compose, plus rewarded ads and Firebase leaderboard.",
+  "architectural_notes": [
+    "Use Kotlin in Android Studio targeting latest Android SDK; must support Android 8+.",
+    "Use Android Canvas or Jetpack Compose for rendering/UI.",
+    "Adopt clean MVVM architecture with well-commented code.",
+    "Optimize for lightweight performance (smooth animations, efficient drawing/update loops)."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Side-scrolling parallax background, 2D cartoon style (runner-background.dim_1920x1080.png)\n- Character sprite sheet with run cycle frames, transparent background (runner-spritesheet.dim_1024x256.png)\n- Character jump/fall sprite(s), transparent background (runner-jump.dim_256x256.png)\n- Obstacle sprites set (e.g., crate, cone, barrier), transparent background (runner-obstacles.dim_512x512.png)\n- Ground/platform tile texture, seamless, 2D (runner-ground-tile.dim_512x128.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-the-core-2d-endless-runner-gameplay-loop-in-the-web-frontend-an-auto-running-character-jump-action-gravity-ground-collision-detection-with-obstacles-and-difficulty-that-scales-over-time-e-g-speed-increases",
+      "title": "Implement the core 2D endless runner gameplay loop in the web frontend: an auto-running character, jump action, gravity, ground, collision detection with obstacles, and difficulty that scales over time (e.g., speed increases).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-main-menu-screen-with-buttons-start-game-settings-and-exit-exit-should-return-to-the-main-menu-stop-the-session-since-browsers-cannot-close-the-app-tab-reliably",
+      "title": "Create a Main Menu screen with buttons: Start Game, Settings, and Exit (Exit should return to the main menu / stop the session since browsers cannot close the app tab reliably).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-settings-screen-with-at-minimum-audio-controls-music-on-off-sfx-on-off-and-optionally-volume-sliders-and-persist-settings-locally-in-the-browser",
+      "title": "Add a Settings screen with at minimum audio controls (music on/off, SFX on/off, and optionally volume sliders) and persist settings locally in the browser.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-smooth-character-animation-suitable-for-an-endless-runner-e-g-run-cycle-and-jump-state-using-lightweight-sprite-animation-driven-by-the-game-loop",
+      "title": "Implement smooth character animation suitable for an endless runner (e.g., run cycle and jump state), using lightweight sprite animation driven by the game loop.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-on-screen-jump-button-control-that-triggers-the-jump-action-on-click-tap-and-also-support-keyboard-input-space-for-accessibility",
+      "title": "Add an on-screen Jump button control that triggers the jump action on click/tap, and also support keyboard input (Space) for accessibility.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-random-obstacle-generation-spawning-with-parameters-to-vary-spacing-and-obstacle-type-size-while-keeping-gameplay-fair-ensure-obstacles-are-cleaned-up-when-off-screen-for-performance",
+      "title": "Implement random obstacle generation/spawning with parameters to vary spacing and obstacle type/size while keeping gameplay fair; ensure obstacles are cleaned up when off-screen for performance.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-score-counter-that-increases-over-time-while-the-player-is-alive-and-display-it-during-gameplay-add-a-high-score-display-on-game-over",
+      "title": "Implement a score counter that increases over time while the player is alive and display it during gameplay; add a high score display on Game Over.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-game-over-screen-that-appears-on-collision-and-includes-a-restart-button-to-start-a-new-run-plus-a-button-to-return-to-main-menu",
+      "title": "Create a Game Over screen that appears on collision and includes a Restart button to start a new run, plus a button to return to Main Menu.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-sound-effects-jump-hit-game-over-and-looping-background-music-with-user-controls-from-settings-ensure-audio-loading-does-not-block-gameplay-start",
+      "title": "Add sound effects (jump, hit/game over) and looping background music with user controls from Settings; ensure audio loading does not block gameplay start.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-optimize-the-game-for-lightweight-performance-in-the-browser-fixed-timestep-or-stable-delta-time-update-loop-avoid-unnecessary-react-re-renders-during-the-game-loop-and-keep-assets-small",
+      "title": "Optimize the game for lightweight performance in the browser: fixed-timestep or stable delta-time update loop, avoid unnecessary React re-renders during the game loop, and keep assets small.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-internet-identity-login-on-the-frontend-and-connect-the-game-to-the-motoko-leaderboard-prompt-login-from-the-menu-or-on-submit-submit-score-on-game-over-and-display-a-leaderboard-screen-showing-top-scores-and-the-player-s-rank-best-score",
+      "title": "Integrate Internet Identity login on the frontend and connect the game to the Motoko leaderboard: prompt login from the menu (or on submit), submit score on Game Over, and display a Leaderboard screen showing top scores and the player’s rank/best score.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-simple-attractive-coherent-ui-theme-applied-across-menu-settings-gameplay-hud-game-over-and-leaderboard-screens-choose-a-distinct-style-and-consistent-typography-colors-do-not-use-a-blue-purple-default-palette",
+      "title": "Provide a simple, attractive, coherent UI theme applied across menu, settings, gameplay HUD, game over, and leaderboard screens (choose a distinct style and consistent typography/colors; do not use a blue/purple default palette).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-rewarded-ads-placeholder-feature-in-the-ui-that-does-not-integrate-third-party-ad-networks-allow-the-player-to-optionally-click-watch-ad-to-continue-on-game-over-and-simulate-a-rewarded-continue-after-a-short-countdown-animation",
+      "title": "Add a “Rewarded Ads” placeholder feature in the UI that does not integrate third-party ad networks: allow the player to optionally click “Watch Ad to Continue” on Game Over and simulate a rewarded continue after a short countdown animation.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-art-assets-character-sprites-obstacles-and-a-background-and-render-them-from-frontend-static-assets-do-not-serve-images-from-the-backend",
+      "title": "Add generated static art assets (character sprites, obstacles, and a background) and render them from frontend static assets (do not serve images from the backend).",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Implement 2D endless runner core gameplay loop (auto-run, jump, collisions)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Main Menu UI (Start Game, Settings, Exit)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Settings screen (at minimum audio toggles/volume)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Smooth character animation system",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Jump button on-screen control",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Random obstacle generation/spawning system",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Score counter that increases over time (and display UI)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Game Over screen with Restart flow",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Sound effects and background music integration",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Rewarded ads integration",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Firebase leaderboard integration",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Provide full project structure, Gradle dependencies, and target latest SDK (Android 8+ compatible)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Implement a backend leaderboard canister in Motoko: store best scores per user (Internet Identity principal), expose endpoints to submit a score, fetch top N scores, and fetch the caller’s best score.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Runner Dash",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

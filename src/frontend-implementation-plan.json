@@ -1,0 +1,474 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Runner Dash — 2D Endless Runner Frontend (Game + UI + Auth + Leaderboard)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement the core 2D endless runner gameplay loop (autorun, jump, gravity/ground, collisions, difficulty scaling) in the frontend.",
+      "acceptanceCriteria": [
+        "Player character moves automatically without user input",
+        "Jump input triggers an upward impulse and returns to ground via gravity",
+        "Obstacles move toward the player; collision ends the run",
+        "Game speed/difficulty increases over time without freezing or stuttering"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/types.ts",
+          "operation": "create",
+          "description": "Define lightweight game domain types used by the loop (player state, obstacles, difficulty parameters, game state machine) to keep logic decoupled from React."
+        },
+        {
+          "path": "frontend/src/game/constants.ts",
+          "operation": "create",
+          "description": "Add tunable gameplay constants (gravity, jump impulse, base speed, speed ramp, ground height, hitboxes) to support fair balancing and predictable physics."
+        },
+        {
+          "path": "frontend/src/game/physics.ts",
+          "operation": "create",
+          "description": "Implement fixed-timestep or stable delta-time physics updates: gravity integration, ground constraint, and jump impulse application without relying on React state."
+        },
+        {
+          "path": "frontend/src/game/collision.ts",
+          "operation": "create",
+          "description": "Implement simple AABB collision detection between the player hitbox and obstacle hitboxes; return collision events to trigger Game Over."
+        },
+        {
+          "path": "frontend/src/game/runnerLoop.ts",
+          "operation": "create",
+          "description": "Implement the main endless runner update loop using requestAnimationFrame and an accumulator for stable updates; integrate difficulty scaling (speed increases over time) and expose callbacks for score updates and game over."
+        },
+        {
+          "path": "frontend/src/game/GameView.tsx",
+          "operation": "create",
+          "description": "Create the gameplay view with a Canvas-based renderer for the runner, ground, obstacles, and background; drive rendering from refs to avoid re-rendering every frame."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Add the top-level screen state machine (Main Menu, Settings, Gameplay, Game Over, Leaderboard) and wire Start Game to launch the gameplay loop."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create a Main Menu screen with Start Game, Settings, and Exit (Exit returns to menu/resets session).",
+      "acceptanceCriteria": [
+        "Main menu is the default landing screen",
+        "Start Game transitions to gameplay",
+        "Settings opens a settings screen/modal",
+        "Exit returns to Main Menu and resets any active run state"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/MainMenuScreen.tsx",
+          "operation": "create",
+          "description": "Implement the Main Menu UI with Start Game, Settings, and Exit actions; include optional Login/Logout and Leaderboard navigation entry points for later wiring. Use the authorization component’s frontend auth approach (useInternetIdentity hook patterns). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire MainMenuScreen as the default landing screen; connect Start Game to begin a new run; connect Settings to open the settings UI; implement Exit behavior to stop/reset any active run and return to Main Menu."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add a Settings screen with audio controls and persist settings locally in the browser.",
+      "acceptanceCriteria": [
+        "Toggles affect audio immediately during gameplay and menus",
+        "Settings persist across page reloads"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/settings/storage.ts",
+          "operation": "create",
+          "description": "Implement local persistence (localStorage) for settings (music enabled, SFX enabled, optional volumes) with safe parsing/defaulting."
+        },
+        {
+          "path": "frontend/src/settings/useSettings.ts",
+          "operation": "create",
+          "description": "Create a React hook to load/save settings and expose setters that update immediately; keep updates lightweight and suitable for use in game screens."
+        },
+        {
+          "path": "frontend/src/screens/SettingsScreen.tsx",
+          "operation": "create",
+          "description": "Create the Settings UI (toggles and optional sliders) for music and SFX; use Tailwind styling and (where available) shadcn-ui controls (e.g., Switch/Slider/Dialog) for consistent UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Settings screen/modal into the screen flow (open from menu and in-game), and ensure changes propagate to the audio system immediately."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement smooth character animation (run cycle + jump/fall state) driven by the game loop using sprite assets.",
+      "acceptanceCriteria": [
+        "Character displays a looping run animation when on ground",
+        "Character displays a distinct jump/fall frame or animation when airborne",
+        "Animation remains smooth at typical frame rates"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/sprites.ts",
+          "operation": "create",
+          "description": "Add a lightweight sprite sheet helper (frame selection by time, run-cycle looping, airborne frame selection) to support smooth animation with minimal overhead."
+        },
+        {
+          "path": "frontend/src/game/GameRenderer.ts",
+          "operation": "create",
+          "description": "Implement Canvas drawing helpers to render the animated player from the sprite sheet and swap to jump/fall sprite when airborne; keep draw calls in the RAF loop and avoid React renders."
+        },
+        {
+          "path": "frontend/src/game/GameView.tsx",
+          "operation": "modify",
+          "description": "Integrate the sprite animation system into the game loop rendering (run-cycle on ground, jump/fall sprite when airborne), using generated image assets from the public folder."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add an on-screen Jump button and keyboard Space input; prevent repeated jumps while airborne (no double-jump by default).",
+      "acceptanceCriteria": [
+        "Jump button works on desktop and mobile touch",
+        "Space key triggers jump",
+        "Jump does not trigger repeatedly while already airborne unless explicitly designed (e.g., no double-jump by default)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/input.ts",
+          "operation": "create",
+          "description": "Implement input handling for jump (pointer/touch + keyboard Space) with debouncing and gating based on player grounded state (no double-jump by default)."
+        },
+        {
+          "path": "frontend/src/game/GameHUD.tsx",
+          "operation": "create",
+          "description": "Create an on-screen HUD including a large Jump button suitable for touch; keep HUD state minimal and driven by callbacks/refs."
+        },
+        {
+          "path": "frontend/src/game/GameView.tsx",
+          "operation": "modify",
+          "description": "Wire Jump button and Space key to the game loop’s jump action; ensure input does not cause React rerenders each frame."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement random obstacle spawning with fair spacing/type variance and cleanup off-screen obstacles for performance.",
+      "acceptanceCriteria": [
+        "Obstacles spawn continuously during a run with randomized spacing",
+        "Off-screen obstacles are removed from memory/state",
+        "No unbounded growth in obstacle list during a long run"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/obstacles.ts",
+          "operation": "create",
+          "description": "Implement obstacle generation/spawning (randomized spacing and types/sizes within fairness bounds), obstacle movement using current game speed, and off-screen cleanup."
+        },
+        {
+          "path": "frontend/src/game/runnerLoop.ts",
+          "operation": "modify",
+          "description": "Integrate obstacle spawning and cleanup into the main loop; ensure obstacle list is held in refs/loop state and does not grow unbounded."
+        },
+        {
+          "path": "frontend/src/game/GameRenderer.ts",
+          "operation": "modify",
+          "description": "Render obstacles with the generated obstacle sprite sheet; map obstacle types to sprite regions for variety."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add score counter (increases over time) shown during gameplay and high score shown on Game Over (local).",
+      "acceptanceCriteria": [
+        "Score increments automatically over time during gameplay",
+        "Current score is visible during a run",
+        "Game Over shows final score and best/high score (local)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/score/highScore.ts",
+          "operation": "create",
+          "description": "Implement local high score persistence (localStorage) with safe load/save and bigint/number handling appropriate for UI display."
+        },
+        {
+          "path": "frontend/src/game/runnerLoop.ts",
+          "operation": "modify",
+          "description": "Add score accumulation (time-based, scaled with speed if desired) and emit score updates at a controlled cadence to avoid UI churn."
+        },
+        {
+          "path": "frontend/src/game/GameHUD.tsx",
+          "operation": "modify",
+          "description": "Display current score during gameplay; ensure the HUD updates do not force full-canvas rerenders (keep Canvas and HUD separated)."
+        },
+        {
+          "path": "frontend/src/screens/GameOverScreen.tsx",
+          "operation": "create",
+          "description": "Show final score and local best/high score; provide Restart and Main Menu controls (and later: submit/continue options)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Create a Game Over screen on collision with Restart and Main Menu actions; restarting resets score/obstacles.",
+      "acceptanceCriteria": [
+        "Collision transitions to Game Over state",
+        "Restart begins a new run with score reset and regenerated obstacles",
+        "Main Menu button returns to main menu and resets run state"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/runnerLoop.ts",
+          "operation": "modify",
+          "description": "On collision, stop the active loop and return a game-over event with the final score; ensure loop resources are released/paused cleanly."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire collision-triggered transition from Gameplay to Game Over; wire Restart to create a fresh run state (score reset, regenerated obstacles) and wire Main Menu to fully reset run/session state."
+        },
+        {
+          "path": "frontend/src/screens/GameOverScreen.tsx",
+          "operation": "modify",
+          "description": "Add buttons and callbacks for Restart and Main Menu; ensure UI is consistent with the app theme and communicates run end state clearly."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add SFX (jump, hit) and looping background music with Settings controls; ensure audio loading does not block gameplay start.",
+      "acceptanceCriteria": [
+        "Jump plays SFX once per jump action",
+        "Collision/game-over plays SFX",
+        "Background music loops and can be toggled",
+        "Audio assets are preloaded or lazily loaded without freezing the UI"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/audio/audioAssets.ts",
+          "operation": "create",
+          "description": "Define audio asset metadata (filenames, loop flags) and provide lazy/preload helpers that avoid blocking the UI thread."
+        },
+        {
+          "path": "frontend/src/audio/AudioManager.ts",
+          "operation": "create",
+          "description": "Implement an audio manager that respects settings (music/SFX enabled, optional volumes), supports one-shot SFX and looping background music, and loads assets lazily."
+        },
+        {
+          "path": "frontend/src/game/runnerLoop.ts",
+          "operation": "modify",
+          "description": "Trigger jump SFX exactly once per valid jump and trigger hit/game-over SFX on collision via injected callbacks (to keep core loop decoupled)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Create and provide a single AudioManager instance; connect it to Settings changes so toggles affect audio immediately in menus and gameplay without requiring a reload."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Optimize for lightweight browser performance (stable update loop, minimal React rerenders, small assets).",
+      "acceptanceCriteria": [
+        "Gameplay remains responsive with stable animation",
+        "State updates during gameplay do not cause excessive React component re-rendering",
+        "No obvious memory growth during extended play"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/runnerLoop.ts",
+          "operation": "modify",
+          "description": "Ensure the loop uses a stable delta-time approach (accumulator + fixed step or clamped dt), avoids per-frame React setState, and includes cleanup hooks to prevent runaway timers/RAF."
+        },
+        {
+          "path": "frontend/src/game/GameView.tsx",
+          "operation": "modify",
+          "description": "Refactor to keep high-frequency state in refs; update React state only for low-frequency UI (score display cadence, pause/game-over transitions)."
+        },
+        {
+          "path": "frontend/src/game/assetLoader.ts",
+          "operation": "create",
+          "description": "Add a small image preloader for the generated sprites/background that loads asynchronously and caches Image objects to avoid repeated decode work."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Integrate Internet Identity login and connect the UI to the leaderboard: login prompt, submit score on Game Over, and show leaderboard with top scores and user best/rank.",
+      "acceptanceCriteria": [
+        "User can authenticate with Internet Identity",
+        "On Game Over, the score can be submitted to backend after login",
+        "Leaderboard screen shows top N and the current user’s best score (and rank if feasible)",
+        "If not logged in, UI clearly indicates login is required to submit scores"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create a Login/Logout button using the authorization component’s frontend patterns (useInternetIdentity + clear React Query cache on logout). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/auth/useProfileSetup.ts",
+          "operation": "create",
+          "description": "Implement a small helper hook to fetch the caller user profile and decide whether to show a first-time profile setup prompt without flashing (per authorization component guidance). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/auth/ProfileSetupDialog.tsx",
+          "operation": "create",
+          "description": "Create a modal/dialog to ask for a display name on first login and save it via backend calls; avoid showing principal id in UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/leaderboard/queries.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to fetch top scores and the caller’s best score using useActor; handle unauthenticated cases gracefully (e.g., show read-only leaderboard, require login for submit)."
+        },
+        {
+          "path": "frontend/src/screens/LeaderboardScreen.tsx",
+          "operation": "create",
+          "description": "Implement a Leaderboard screen showing top N scores and the current user’s best score; show rank if feasible from available data; display clear messaging when login is required to submit scores."
+        },
+        {
+          "path": "frontend/src/screens/GameOverScreen.tsx",
+          "operation": "modify",
+          "description": "Add 'Submit Score' UX: if logged in, submit final score and show result; if not logged in, show a clear prompt to login before submitting (using the LoginButton). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire authentication UI into the menu and/or game over flow; include ProfileSetupDialog gating after login; wire navigation to/from LeaderboardScreen; ensure logout clears cached leaderboard/profile data."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Apply a coherent, attractive non-blue/purple UI theme across all screens (menu, settings, HUD, game over, leaderboard).",
+      "acceptanceCriteria": [
+        "All screens share a consistent visual style (colors, type, spacing, buttons)",
+        "Theme is readable and accessible (contrast)",
+        "UI feels game-appropriate and polished"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Adjust the global Tailwind CSS variables to a distinct non-blue/purple palette (e.g., warm sunset/orange + charcoal + cream) and ensure contrast/readability across backgrounds and buttons."
+        },
+        {
+          "path": "frontend/src/ui/ScreenLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout wrapper for consistent screen framing (background treatment, typography scale, button styling conventions) used by menu/settings/game over/leaderboard."
+        },
+        {
+          "path": "frontend/src/screens/MainMenuScreen.tsx",
+          "operation": "modify",
+          "description": "Adopt the shared ScreenLayout and consistent button/typography styling to match the chosen theme."
+        },
+        {
+          "path": "frontend/src/screens/SettingsScreen.tsx",
+          "operation": "modify",
+          "description": "Adopt the shared ScreenLayout and consistent controls styling to match the chosen theme."
+        },
+        {
+          "path": "frontend/src/screens/GameOverScreen.tsx",
+          "operation": "modify",
+          "description": "Adopt the shared ScreenLayout and consistent styling for score panels and action buttons."
+        },
+        {
+          "path": "frontend/src/screens/LeaderboardScreen.tsx",
+          "operation": "modify",
+          "description": "Adopt the shared ScreenLayout and consistent styling for the leaderboard table/list and user highlight."
+        },
+        {
+          "path": "frontend/src/game/GameHUD.tsx",
+          "operation": "modify",
+          "description": "Theme the HUD elements (score chip, jump button) to match the app style while keeping gameplay unobstructed."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Add a rewarded-ads placeholder: 'Watch Ad to Continue' on Game Over with a simulated countdown and one continue per run.",
+      "acceptanceCriteria": [
+        "Game Over screen includes an optional rewarded-continue action",
+        "No external ad SDKs are required",
+        "Choosing the option shows a short simulated ad countdown and then resumes gameplay once per run (configurable)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/rewardedAds/useRewardedContinue.ts",
+          "operation": "create",
+          "description": "Implement the rewarded-continue simulation logic: one-time-per-run gating, countdown timer state, and a callback to resume gameplay with a safe state reset."
+        },
+        {
+          "path": "frontend/src/screens/RewardedAdModal.tsx",
+          "operation": "create",
+          "description": "Create a modal that simulates an ad with a short countdown animation/indicator and a 'Continue' completion transition; no third-party SDK usage."
+        },
+        {
+          "path": "frontend/src/screens/GameOverScreen.tsx",
+          "operation": "modify",
+          "description": "Add 'Watch Ad to Continue' action, show the RewardedAdModal countdown, and on completion resume gameplay once per run (configurable)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the rewarded-continue flow into the app state: resume gameplay after countdown without creating a new run, while keeping scoring/obstacle state consistent with a continue."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Add generated static art assets under frontend/public/assets/generated and render them in gameplay (character, obstacles, background, ground).",
+      "acceptanceCriteria": [
+        "Generated images are placed under frontend/public/assets/generated",
+        "Gameplay uses the generated sprites for character/obstacles/background",
+        "Assets load correctly in production build without backend image routing"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/runner-background.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the generated parallax background asset as a static file under the required path for production-safe loading."
+        },
+        {
+          "path": "frontend/public/assets/generated/runner-spritesheet.dim_1024x256.png",
+          "operation": "create",
+          "description": "Add the generated character run-cycle sprite sheet as a static file under the required path for production-safe loading."
+        },
+        {
+          "path": "frontend/public/assets/generated/runner-jump.dim_256x256.png",
+          "operation": "create",
+          "description": "Add the generated character jump/fall sprite asset as a static file under the required path for production-safe loading."
+        },
+        {
+          "path": "frontend/public/assets/generated/runner-obstacles.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated obstacle sprites asset as a static file under the required path for production-safe loading."
+        },
+        {
+          "path": "frontend/public/assets/generated/runner-ground-tile.dim_512x128.png",
+          "operation": "create",
+          "description": "Add the generated seamless ground tile asset as a static file under the required path for production-safe loading."
+        },
+        {
+          "path": "frontend/src/game/assets.ts",
+          "operation": "create",
+          "description": "Centralize static asset references for background/sprites/obstacles/ground using the exact generated file paths under frontend/public/assets/generated."
+        },
+        {
+          "path": "frontend/src/game/GameRenderer.ts",
+          "operation": "modify",
+          "description": "Render the generated background (with simple parallax), ground tile scrolling, character sprites, and obstacle sprites from the static assets."
+        },
+        {
+          "path": "frontend/src/game/assetLoader.ts",
+          "operation": "modify",
+          "description": "Preload the generated images asynchronously and reuse decoded Image instances during gameplay rendering to prevent stutter."
+        }
+      ]
+    }
+  ]
+}

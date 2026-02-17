@@ -1,0 +1,398 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-17T06:58:35.356Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 15,
+    "implemented": 14,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Implement the core 2D endless runner gameplay loop in the web frontend: an auto-running character, jump action, gravity, ground, collision detection with obstacles, and difficulty that scales over time (e.g., speed increases).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/types.ts",
+          "frontend/src/game/constants.ts",
+          "frontend/src/game/physics.ts",
+          "frontend/src/game/collision.ts",
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameView.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/types.ts",
+          "frontend/src/game/constants.ts",
+          "frontend/src/game/physics.ts",
+          "frontend/src/game/collision.ts",
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameView.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-10",
+        "summary": "Optimize the game for lightweight performance in the browser: fixed-timestep or stable delta-time update loop, avoid unnecessary React re-renders during the game loop, and keep assets small.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameView.tsx",
+          "frontend/src/game/assetLoader.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameView.tsx",
+          "frontend/src/game/assetLoader.ts"
+        ]
+      },
+      {
+        "id": "REQ-11",
+        "summary": "Implement a backend leaderboard canister in Motoko: store best scores per user (Internet Identity principal), expose endpoints to submit a score, fetch top N scores, and fetch the caller’s best score.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-12",
+        "summary": "Integrate Internet Identity login on the frontend and connect the game to the Motoko leaderboard: prompt login from the menu (or on submit), submit score on Game Over, and display a Leaderboard screen showing top scores and the player’s rank/best score.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/auth/LoginButton.tsx",
+          "frontend/src/auth/useProfileSetup.ts",
+          "frontend/src/auth/ProfileSetupDialog.tsx",
+          "frontend/src/leaderboard/queries.ts",
+          "frontend/src/screens/LeaderboardScreen.tsx",
+          "frontend/src/screens/GameOverScreen.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/auth/LoginButton.tsx",
+          "frontend/src/auth/useProfileSetup.ts",
+          "frontend/src/auth/ProfileSetupDialog.tsx",
+          "frontend/src/screens/LeaderboardScreen.tsx",
+          "frontend/src/screens/GameOverScreen.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-13",
+        "summary": "Provide a simple, attractive, coherent UI theme applied across menu, settings, gameplay HUD, game over, and leaderboard screens (choose a distinct style and consistent typography/colors; do not use a blue/purple default palette).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/index.css",
+          "frontend/src/ui/ScreenLayout.tsx",
+          "frontend/src/screens/MainMenuScreen.tsx",
+          "frontend/src/screens/SettingsScreen.tsx",
+          "frontend/src/screens/GameOverScreen.tsx",
+          "frontend/src/screens/LeaderboardScreen.tsx",
+          "frontend/src/game/GameHUD.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/index.css",
+          "frontend/src/ui/ScreenLayout.tsx",
+          "frontend/src/screens/MainMenuScreen.tsx",
+          "frontend/src/screens/SettingsScreen.tsx",
+          "frontend/src/screens/GameOverScreen.tsx",
+          "frontend/src/screens/LeaderboardScreen.tsx",
+          "frontend/src/game/GameHUD.tsx"
+        ]
+      },
+      {
+        "id": "REQ-14",
+        "summary": "Add a “Rewarded Ads” placeholder feature in the UI that does not integrate third-party ad networks: allow the player to optionally click “Watch Ad to Continue” on Game Over and simulate a rewarded continue after a short countdown animation.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/rewardedAds/useRewardedContinue.ts",
+          "frontend/src/screens/RewardedAdModal.tsx",
+          "frontend/src/screens/GameOverScreen.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/rewardedAds/useRewardedContinue.ts",
+          "frontend/src/screens/RewardedAdModal.tsx",
+          "frontend/src/screens/GameOverScreen.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Add generated static art assets (character sprites, obstacles, and a background) and render them from frontend static assets (do not serve images from the backend).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/runner-background.dim_1920x1080.png",
+          "frontend/public/assets/generated/runner-spritesheet.dim_1024x256.png",
+          "frontend/public/assets/generated/runner-jump.dim_256x256.png",
+          "frontend/public/assets/generated/runner-obstacles.dim_512x512.png",
+          "frontend/public/assets/generated/runner-ground-tile.dim_512x128.png",
+          "frontend/src/game/assets.ts",
+          "frontend/src/game/GameRenderer.ts",
+          "frontend/src/game/assetLoader.ts"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/runner-background.dim_1920x1080.png",
+          "frontend/public/assets/generated/runner-spritesheet.dim_1024x256.png",
+          "frontend/public/assets/generated/runner-jump.dim_256x256.png",
+          "frontend/public/assets/generated/runner-obstacles.dim_512x512.png",
+          "frontend/public/assets/generated/runner-ground-tile.dim_512x128.png",
+          "frontend/src/game/assets.ts",
+          "frontend/src/game/GameRenderer.ts",
+          "frontend/src/game/assetLoader.ts"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Create a Main Menu screen with buttons: Start Game, Settings, and Exit (Exit should return to the main menu / stop the session since browsers cannot close the app tab reliably).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/screens/MainMenuScreen.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/screens/MainMenuScreen.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Add a Settings screen with at minimum audio controls (music on/off, SFX on/off, and optionally volume sliders) and persist settings locally in the browser.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/settings/storage.ts",
+          "frontend/src/settings/useSettings.ts",
+          "frontend/src/screens/SettingsScreen.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/settings/storage.ts",
+          "frontend/src/settings/useSettings.ts",
+          "frontend/src/screens/SettingsScreen.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Implement smooth character animation suitable for an endless runner (e.g., run cycle and jump state), using lightweight sprite animation driven by the game loop.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/sprites.ts",
+          "frontend/src/game/GameRenderer.ts",
+          "frontend/src/game/GameView.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/GameRenderer.ts",
+          "frontend/src/game/GameView.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Add an on-screen Jump button control that triggers the jump action on click/tap, and also support keyboard input (Space) for accessibility.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/input.ts",
+          "frontend/src/game/GameHUD.tsx",
+          "frontend/src/game/GameView.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/GameHUD.tsx",
+          "frontend/src/game/GameView.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Implement random obstacle generation/spawning with parameters to vary spacing and obstacle type/size while keeping gameplay fair; ensure obstacles are cleaned up when off-screen for performance.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/obstacles.ts",
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameRenderer.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/obstacles.ts",
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameRenderer.ts"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Implement a score counter that increases over time while the player is alive and display it during gameplay; add a high score display on Game Over.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/score/highScore.ts",
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameHUD.tsx",
+          "frontend/src/screens/GameOverScreen.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/game/GameHUD.tsx",
+          "frontend/src/screens/GameOverScreen.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Create a Game Over screen that appears on collision and includes a Restart button to start a new run, plus a button to return to Main Menu.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/App.tsx",
+          "frontend/src/screens/GameOverScreen.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/App.tsx",
+          "frontend/src/screens/GameOverScreen.tsx"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Add sound effects (jump, hit/game over) and looping background music with user controls from Settings; ensure audio loading does not block gameplay start.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/audio/audioAssets.ts",
+          "frontend/src/audio/AudioManager.ts",
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/audio/AudioManager.ts",
+          "frontend/src/game/runnerLoop.ts",
+          "frontend/src/App.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/authorization/MixinAuthorization.mo",
+    "backend/authorization/access-control.mo",
+    "backend/main.mo",
+    "build-request.json",
+    "build-template/Dockerfile",
+    "build-template/LICENSE",
+    "build-template/README.md",
+    "build-template/deploy.sh",
+    "build-template/icp.yaml",
+    "build-template/package.json",
+    "build-template/pnpm-lock.yaml",
+    "build-template/pnpm-workspace.yaml",
+    "build-template/scripts/prune-unused-images.js",
+    "build-template/scripts/resize-images.js",
+    "build-template/src/backend/canister.yaml",
+    "build-template/src/backend/system-idl/aaaaa-aa.did",
+    "build-template/src/frontend/canister.yaml",
+    "build-template/src/frontend/components.json",
+    "build-template/src/frontend/env.json",
+    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
+    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
+    "build-template/src/frontend/eslint.config.js",
+    "build-template/src/frontend/package.json",
+    "build-template/src/frontend/postcss.config.js",
+    "build-template/src/frontend/src/components/ui/accordion.tsx",
+    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
+    "build-template/src/frontend/src/components/ui/alert.tsx",
+    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
+    "build-template/src/frontend/src/components/ui/avatar.tsx",
+    "build-template/src/frontend/src/components/ui/badge.tsx",
+    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
+    "build-template/src/frontend/src/components/ui/button.tsx",
+    "build-template/src/frontend/src/components/ui/calendar.tsx",
+    "build-template/src/frontend/src/components/ui/card.tsx",
+    "build-template/src/frontend/src/components/ui/carousel.tsx",
+    "build-template/src/frontend/src/components/ui/chart.tsx",
+    "build-template/src/frontend/src/components/ui/checkbox.tsx",
+    "build-template/src/frontend/src/components/ui/collapsible.tsx",
+    "build-template/src/frontend/src/components/ui/command.tsx",
+    "build-template/src/frontend/src/components/ui/context-menu.tsx",
+    "build-template/src/frontend/src/components/ui/dialog.tsx",
+    "build-template/src/frontend/src/components/ui/drawer.tsx",
+    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
+    "build-template/src/frontend/src/components/ui/form.tsx",
+    "build-template/src/frontend/src/components/ui/hover-card.tsx",
+    "build-template/src/frontend/src/components/ui/input-otp.tsx",
+    "build-template/src/frontend/src/components/ui/input.tsx",
+    "build-template/src/frontend/src/components/ui/label.tsx",
+    "build-template/src/frontend/src/components/ui/menubar.tsx",
+    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
+    "build-template/src/frontend/src/components/ui/pagination.tsx",
+    "build-template/src/frontend/src/components/ui/popover.tsx",
+    "build-template/src/frontend/src/components/ui/progress.tsx",
+    "build-template/src/frontend/src/components/ui/radio-group.tsx",
+    "build-template/src/frontend/src/components/ui/resizable.tsx",
+    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
+    "build-template/src/frontend/src/components/ui/select.tsx",
+    "build-template/src/frontend/src/components/ui/separator.tsx",
+    "build-template/src/frontend/src/components/ui/sheet.tsx",
+    "build-template/src/frontend/src/components/ui/sidebar.tsx",
+    "build-template/src/frontend/src/components/ui/skeleton.tsx",
+    "build-template/src/frontend/src/components/ui/slider.tsx",
+    "build-template/src/frontend/src/components/ui/sonner.tsx",
+    "build-template/src/frontend/src/components/ui/switch.tsx",
+    "build-template/src/frontend/src/components/ui/table.tsx",
+    "build-template/src/frontend/src/components/ui/tabs.tsx",
+    "build-template/src/frontend/src/components/ui/textarea.tsx",
+    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
+    "build-template/src/frontend/src/components/ui/toggle.tsx",
+    "build-template/src/frontend/src/components/ui/tooltip.tsx",
+    "build-template/src/frontend/src/hooks/use-mobile.tsx",
+    "build-template/src/frontend/src/lib/utils.ts",
+    "build-template/src/frontend/tsconfig.json",
+    "build-template/src/frontend/vite.config.js",
+    "build-template/tsconfig.json",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/public/assets/generated/runner-background.dim_1920x1080.png",
+    "frontend/public/assets/generated/runner-ground-tile.dim_512x128.png",
+    "frontend/public/assets/generated/runner-jump.dim_256x256.png",
+    "frontend/public/assets/generated/runner-obstacles.dim_512x512.png",
+    "frontend/public/assets/generated/runner-spritesheet.dim_1024x256.png",
+    "frontend/src/App.tsx",
+    "frontend/src/audio/AudioManager.ts",
+    "frontend/src/auth/LoginButton.tsx",
+    "frontend/src/auth/ProfileSetupDialog.tsx",
+    "frontend/src/auth/useProfileSetup.ts",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/config.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/game/GameHUD.tsx",
+    "frontend/src/game/GameRenderer.ts",
+    "frontend/src/game/GameView.tsx",
+    "frontend/src/game/assetLoader.ts",
+    "frontend/src/game/assets.ts",
+    "frontend/src/game/collision.ts",
+    "frontend/src/game/constants.ts",
+    "frontend/src/game/obstacles.ts",
+    "frontend/src/game/physics.ts",
+    "frontend/src/game/runnerLoop.ts",
+    "frontend/src/game/types.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/rewardedAds/useRewardedContinue.ts",
+    "frontend/src/screens/GameOverScreen.tsx",
+    "frontend/src/screens/LeaderboardScreen.tsx",
+    "frontend/src/screens/MainMenuScreen.tsx",
+    "frontend/src/screens/RewardedAdModal.tsx",
+    "frontend/src/screens/SettingsScreen.tsx",
+    "frontend/src/settings/storage.ts",
+    "frontend/src/settings/useSettings.ts",
+    "frontend/src/ui-summary.json",
+    "frontend/src/ui/ScreenLayout.tsx",
+    "frontend/src/utils/StorageClient.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

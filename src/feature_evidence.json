@@ -1,0 +1,309 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-the-core-2d-endless-runner-gameplay-loop-in-the-web-frontend-an-auto-running-character-jump-action-gravity-ground-collision-detection-with-obstacles-and-difficulty-that-scales-over-time-e-g-speed-increases",
+      "featureTitle": "Implement the core 2D endless runner gameplay loop in the web frontend: an auto-running character, jump action, gravity, ground, collision detection with obstacles, and difficulty that scales over time (e.g., speed increases).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/game/GameView.tsx",
+        "frontend/src/game/collision.ts",
+        "frontend/src/game/constants.ts",
+        "frontend/src/game/physics.ts",
+        "frontend/src/game/runnerLoop.ts",
+        "frontend/src/game/types.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-main-menu-screen-with-buttons-start-game-settings-and-exit-exit-should-return-to-the-main-menu-stop-the-session-since-browsers-cannot-close-the-app-tab-reliably",
+      "featureTitle": "Create a Main Menu screen with buttons: Start Game, Settings, and Exit (Exit should return to the main menu / stop the session since browsers cannot close the app tab reliably).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/screens/MainMenuScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-settings-screen-with-at-minimum-audio-controls-music-on-off-sfx-on-off-and-optionally-volume-sliders-and-persist-settings-locally-in-the-browser",
+      "featureTitle": "Add a Settings screen with at minimum audio controls (music on/off, SFX on/off, and optionally volume sliders) and persist settings locally in the browser.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/screens/SettingsScreen.tsx",
+        "frontend/src/settings/storage.ts",
+        "frontend/src/settings/useSettings.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-smooth-character-animation-suitable-for-an-endless-runner-e-g-run-cycle-and-jump-state-using-lightweight-sprite-animation-driven-by-the-game-loop",
+      "featureTitle": "Implement smooth character animation suitable for an endless runner (e.g., run cycle and jump state), using lightweight sprite animation driven by the game loop.",
+      "files": [
+        "frontend/src/game/GameRenderer.ts",
+        "frontend/src/game/GameView.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-on-screen-jump-button-control-that-triggers-the-jump-action-on-click-tap-and-also-support-keyboard-input-space-for-accessibility",
+      "featureTitle": "Add an on-screen Jump button control that triggers the jump action on click/tap, and also support keyboard input (Space) for accessibility.",
+      "files": [
+        "frontend/src/game/GameHUD.tsx",
+        "frontend/src/game/GameView.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-random-obstacle-generation-spawning-with-parameters-to-vary-spacing-and-obstacle-type-size-while-keeping-gameplay-fair-ensure-obstacles-are-cleaned-up-when-off-screen-for-performance",
+      "featureTitle": "Implement random obstacle generation/spawning with parameters to vary spacing and obstacle type/size while keeping gameplay fair; ensure obstacles are cleaned up when off-screen for performance.",
+      "files": [
+        "frontend/src/game/GameRenderer.ts",
+        "frontend/src/game/obstacles.ts",
+        "frontend/src/game/runnerLoop.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-score-counter-that-increases-over-time-while-the-player-is-alive-and-display-it-during-gameplay-add-a-high-score-display-on-game-over",
+      "featureTitle": "Implement a score counter that increases over time while the player is alive and display it during gameplay; add a high score display on Game Over.",
+      "files": [
+        "frontend/src/game/GameHUD.tsx",
+        "frontend/src/game/runnerLoop.ts",
+        "frontend/src/screens/GameOverScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-game-over-screen-that-appears-on-collision-and-includes-a-restart-button-to-start-a-new-run-plus-a-button-to-return-to-main-menu",
+      "featureTitle": "Create a Game Over screen that appears on collision and includes a Restart button to start a new run, plus a button to return to Main Menu.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/game/runnerLoop.ts",
+        "frontend/src/screens/GameOverScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-sound-effects-jump-hit-game-over-and-looping-background-music-with-user-controls-from-settings-ensure-audio-loading-does-not-block-gameplay-start",
+      "featureTitle": "Add sound effects (jump, hit/game over) and looping background music with user controls from Settings; ensure audio loading does not block gameplay start.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/audio/AudioManager.ts",
+        "frontend/src/game/runnerLoop.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-optimize-the-game-for-lightweight-performance-in-the-browser-fixed-timestep-or-stable-delta-time-update-loop-avoid-unnecessary-react-re-renders-during-the-game-loop-and-keep-assets-small",
+      "featureTitle": "Optimize the game for lightweight performance in the browser: fixed-timestep or stable delta-time update loop, avoid unnecessary React re-renders during the game loop, and keep assets small.",
+      "files": [
+        "frontend/src/game/GameView.tsx",
+        "frontend/src/game/assetLoader.ts",
+        "frontend/src/game/runnerLoop.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-integrate-internet-identity-login-on-the-frontend-and-connect-the-game-to-the-motoko-leaderboard-prompt-login-from-the-menu-or-on-submit-submit-score-on-game-over-and-display-a-leaderboard-screen-showing-top-scores-and-the-player-s-rank-best-score",
+      "featureTitle": "Integrate Internet Identity login on the frontend and connect the game to the Motoko leaderboard: prompt login from the menu (or on submit), submit score on Game Over, and display a Leaderboard screen showing top scores and the player’s rank/best score.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/auth/LoginButton.tsx",
+        "frontend/src/auth/ProfileSetupDialog.tsx",
+        "frontend/src/auth/useProfileSetup.ts",
+        "frontend/src/screens/GameOverScreen.tsx",
+        "frontend/src/screens/LeaderboardScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-a-simple-attractive-coherent-ui-theme-applied-across-menu-settings-gameplay-hud-game-over-and-leaderboard-screens-choose-a-distinct-style-and-consistent-typography-colors-do-not-use-a-blue-purple-default-palette",
+      "featureTitle": "Provide a simple, attractive, coherent UI theme applied across menu, settings, gameplay HUD, game over, and leaderboard screens (choose a distinct style and consistent typography/colors; do not use a blue/purple default palette).",
+      "files": [
+        "frontend/index.css",
+        "frontend/src/game/GameHUD.tsx",
+        "frontend/src/screens/GameOverScreen.tsx",
+        "frontend/src/screens/LeaderboardScreen.tsx",
+        "frontend/src/screens/MainMenuScreen.tsx",
+        "frontend/src/screens/SettingsScreen.tsx",
+        "frontend/src/ui/ScreenLayout.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-rewarded-ads-placeholder-feature-in-the-ui-that-does-not-integrate-third-party-ad-networks-allow-the-player-to-optionally-click-watch-ad-to-continue-on-game-over-and-simulate-a-rewarded-continue-after-a-short-countdown-animation",
+      "featureTitle": "Add a “Rewarded Ads” placeholder feature in the UI that does not integrate third-party ad networks: allow the player to optionally click “Watch Ad to Continue” on Game Over and simulate a rewarded continue after a short countdown animation.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/rewardedAds/useRewardedContinue.ts",
+        "frontend/src/screens/GameOverScreen.tsx",
+        "frontend/src/screens/RewardedAdModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-art-assets-character-sprites-obstacles-and-a-background-and-render-them-from-frontend-static-assets-do-not-serve-images-from-the-backend",
+      "featureTitle": "Add generated static art assets (character sprites, obstacles, and a background) and render them from frontend static assets (do not serve images from the backend).",
+      "files": [
+        "frontend/src/game/GameRenderer.ts",
+        "frontend/src/game/assetLoader.ts",
+        "frontend/src/game/assets.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
